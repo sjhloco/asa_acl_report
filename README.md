@@ -35,10 +35,7 @@ The info gathered in the script is all done from user interaction once the scrip
 python asa_acl_report.py
 ```
 
-<img width="819" alt="image" src="https://user-images.githubusercontent.com/33333983/69007995-52800c80-093d-11ea-970a-191c5f8b194b.png">
-
-
-![image](https://user-images.githubusercontent.com/33333983/69009162-aba26d00-094a-11ea-9aef-d1c2b95b2d10.png)
+<img width="830" alt="image" src="https://user-images.githubusercontent.com/33333983/69009226-5dda3480-094b-11ea-95bd-c66a69f0bfb4.png">
 
 ### Run against ASA
 
@@ -56,7 +53,7 @@ When running against files you must specify the full filename (including extensi
 
 If you only want a full list of all ACEs in all the ACLs you can leave the the next two options blank and just enter the filename where the results will be stored.
 
-<img width="840" alt="image" src="https://user-images.githubusercontent.com/33333983/69008932-23bb6380-0948-11ea-9555-d9bee32c6fb6.png">
+<img width="809" alt="image" src="https://user-images.githubusercontent.com/33333983/69009271-a691ed80-094b-11ea-8163-714309f91a85.png">
 
 ## Filtering
 
@@ -72,14 +69,14 @@ If any of the ASA login details are incorrect you will get a descriptive error m
 
 If the acl or acl_brief filename cannot located in the home directory you will be prompted to check and re-enter.
 
-<img width="699" alt="image" src="https://user-images.githubusercontent.com/33333983/69008279-9de7ea00-0940-11ea-95d4-9800d7b04cea.png">
+<img width="814" alt="image" src="https://user-images.githubusercontent.com/33333983/69009286-cf19e780-094b-11ea-8ca6-d3c5c0016401.png">
 
 If the filename entered already exists you will be prompted to ovewrite it or re-enter a new name.
 
-<img width="801" alt="image" src="https://user-images.githubusercontent.com/33333983/69008332-236b9a00-0941-11ea-8a65-2ca69d9c454e.png">
+<img width="819" alt="image" src="https://user-images.githubusercontent.com/33333983/69009301-fe305900-094b-11ea-82e8-be8d5c79278f.png">
 
 If the address entered is not in a valid IPv4 format or the ACL does not exist (on the ASA or in the ACL file) the script will fail with details of the offending item.
 
-<img width="801" alt="image" src="https://user-images.githubusercontent.com/33333983/69008476-e1dbee80-0942-11ea-89a7-bb5ea84f11d4.png">
+<img width="762" alt="image" src="https://user-images.githubusercontent.com/33333983/69009348-4e0f2000-094c-11ea-84df-5f0c452ea441.png">
 
 <img width="836" alt="image" src="https://user-images.githubusercontent.com/33333983/69008486-06d06180-0943-11ea-87a5-d1361d325bc9.png">
