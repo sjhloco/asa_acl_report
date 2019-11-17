@@ -1,6 +1,6 @@
 # ASA ACL Report
 
-ASA ACL Auditor v0.3 (tested 9.6)
+ASA ACL Auditor v0.2 (tested 9.6)
 
 Creates a CSV file of the ACLs on an ASA with details of the hit counts and the last time the rule was hit. The results can be filtered down to a specific subset of ACLs and addresses.
 
