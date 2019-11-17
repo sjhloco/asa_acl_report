@@ -8,17 +8,17 @@ Creates a CSV file of the ACLs on an ASA with details of the hit counts and the 
 
 The report can either be generated from the ASA or generated offline by running against previously extracted command outputs. To run offline you need to collect the following info and save it in separate files in your home directory:
 
-- **ACLs** *(mandatory)*: All the expanded access-lists (*show access-list*) you wish to evaluate against stored in the 1 single file.
-- **ACL Brief** *(optional)*: To get the timestamp of the last hit must have a second file with *show access-list <name> brief* for the ACLs. Any ACLs without this file you will not get the timestamp information in the csv.
+- **ACLs** *(mandatory)*: All the expanded access-lists (*show access-list*) you wish to evaluate against stored in the one single file.
+- **ACL Brief** *(optional)*: To get the timestamp of the last hit you must have a second file with *show access-list <name> brief* for the ACLs. Any ACLs without this file you will not get the timestamp information in the csv.
 
 ## Prerequisites
 
-The only extra package required to run this is netmiko that is used for the SSH connections to the device.
+The only extra package required to run this is netmiko, itis used for the SSH connections to the device.
 ```
 pip install -r requirements.txt
 ```
 
-The first section of the script is the Variablesn. In here you can change the default directory location (where it saves the CSV and looks for offline files) and customize the CSV header names.
+The first section of the script is the customisable variables. You can change the default directory location (where it saves the CSV and looks for offline files) and the CSV header names.
 ```
 directory = expanduser("~")
 csv_columns = ['ACL Name', 'Line Number', 'Access', 'Protocol', 'Source Address', 'Source Port',
@@ -34,28 +34,26 @@ python asa_acl_report.py
 
 <img width="819" alt="image" src="https://user-images.githubusercontent.com/33333983/69007995-52800c80-093d-11ea-970a-191c5f8b194b.png">
 
-- When running against a device the IP adddress, username and password are required.
+### Run against an ASA
+When running against a device the IP adddress, username and password are required.
+<img width="809" alt="image" src="https://user-images.githubusercontent.com/33333983/69008179-84926e00-093f-11ea-8669-3644036069d8.png">
 
-IMAGE
+If any of these are entered details are incorrec you will get a descriptive error message and be prompted to enter again.
+<img width="806" alt="image" src="https://user-images.githubusercontent.com/33333983/69008216-008cb600-0940-11ea-997a-10ed54971e97.png">
+<img width="822" alt="image" src="https://user-images.githubusercontent.com/33333983/69008225-11d5c280-0940-11ea-9b5d-d40120f64ebc.png">
 
-If any of these are entered incorrectly will gte a descriptive error message and be promterd to enter again.
+### Run against a file
+When running against files you must specify the full filename (including extensions) and the script will by default look in your home directory for it. The files will be santarised to remove any unneeded blank lines and cmds as well as ensuring that it is not the output of *show run access-list*.
+<img width="818" alt="image" src="https://user-images.githubusercontent.com/33333983/69008242-519caa00-0940-11ea-9330-11fecbe54e62.png">
 
-TWO IMAGES
+If the filename cannot located in the home directory the user will be prompted to check and re-enter.
+<img width="699" alt="image" src="https://user-images.githubusercontent.com/33333983/69008279-9de7ea00-0940-11ea-95d4-9800d7b04cea.png">
 
-- When running against files you need to specify the full filename (including extensions). The files will be santarised to remove any unneeded blank lines and cmds as well as ensuring that it is not the output of *show run access-list*
+If you only want a full list of all ACEs in all the ACLs you can leave the the next two options blank and just enter the filename where the results will be stored.
+<img width="812" alt="image" src="https://user-images.githubusercontent.com/33333983/69008305-d7205a00-0940-11ea-90d5-17857d936d1c.png">
 
-IMAGE
-If the filename is not located in the hoem directory will be prompted to check and enter again.
-
-IMAGE
-
-If you only want the full list of all ACEs in all ACLs you can leave the the next two options blank and just enter the file name for the results.
-
-IMAGE
-
-If the file name entered already exists you will be prompted to ovewrite it or re-enter a new name.
-
-IMAGE
+If the filename entered already exists you will be prompted to ovewrite it or re-enter a new name.
+<img width="801" alt="image" src="https://user-images.githubusercontent.com/33333983/69008332-236b9a00-0941-11ea-8a65-2ca69d9c454e.png">
 
 ## Filtering
 
