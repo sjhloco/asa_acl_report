@@ -39,34 +39,38 @@ When running against a device the IP adddress, username and password are require
 
 <img width="809" alt="image" src="https://user-images.githubusercontent.com/33333983/69008179-84926e00-093f-11ea-8669-3644036069d8.png">
 
-If any of these are entered details are incorrec you will get a descriptive error message and be prompted to enter again.
 
-<img width="806" alt="image" src="https://user-images.githubusercontent.com/33333983/69008216-008cb600-0940-11ea-997a-10ed54971e97.png">
-<img width="812" alt="image" src="https://user-images.githubusercontent.com/33333983/69008374-86f5c780-0941-11ea-8d45-74b4cdbe9cb7.png">
 
 ### Run against file
-When running against files you must specify the full filename (including extensions) and the script will by default look in your home directory for it. The files will be santarised to remove any unneeded blank lines and cmds as well as ensuring that it is not the output of *show run access-list*.
+When running against files you must specify the full filename (including extensions) and the script will by default look in your home directory for them. The files will be santarised to remove any unneeded blank lines and commands as well as ensuring that it is not the output of *show run access-list*.
 
 <img width="818" alt="image" src="https://user-images.githubusercontent.com/33333983/69008242-519caa00-0940-11ea-9330-11fecbe54e62.png">
 
-If the filename cannot located in the home directory the user will be prompted to check and re-enter.
-
-<img width="699" alt="image" src="https://user-images.githubusercontent.com/33333983/69008279-9de7ea00-0940-11ea-95d4-9800d7b04cea.png">
-
+### Results
 If you only want a full list of all ACEs in all the ACLs you can leave the the next two options blank and just enter the filename where the results will be stored.
 
 <img width="812" alt="image" src="https://user-images.githubusercontent.com/33333983/69008305-d7205a00-0940-11ea-90d5-17857d936d1c.png">
+
+## Filtering
+The report that is generated can be filtered down to specific addresses, ACLs, or a combination of both. All must be separated by a space and be either a valid address (no prefix or subnet mask supported) or a valid ACL name on the ASA (be careful with capitalization).
+
+<img width="829" alt="image" src="https://user-images.githubusercontent.com/33333983/69008443-709c3b80-0942-11ea-8db3-6b925e0830da.png">
+
+## Error Handling
+If any of the ASA login details are incorrect you will get a descriptive error message and be prompted to re-enter.
+
+<img width="822" alt="image" src="https://user-images.githubusercontent.com/33333983/69008411-10a59500-0942-11ea-92a2-40631cce221f.png">
+
+If the acl or acl_breif filename cannot located in the home directory you will be prompted to check and re-enter.
+
+<img width="699" alt="image" src="https://user-images.githubusercontent.com/33333983/69008279-9de7ea00-0940-11ea-95d4-9800d7b04cea.png">
 
 If the filename entered already exists you will be prompted to ovewrite it or re-enter a new name.
 
 <img width="801" alt="image" src="https://user-images.githubusercontent.com/33333983/69008332-236b9a00-0941-11ea-8a65-2ca69d9c454e.png">
 
-## Filtering
-
-The report that is generated can be filtered down to specific IP/ network addresses, ACLs, or a combination of both. All must be separated by a space, and be either a valid address (no prefix or subnet mask supported) or a valid ACL name on the ASA (be careful with capitalization).
-
-IMAGE
-
 If the address entered is not in a valid IPv4 format or the ACL does not exist (on the ASA or in the ACL file) the script will fail with details of the offending item.
 
-IMAGE
+<img width="801" alt="image" src="https://user-images.githubusercontent.com/33333983/69008476-e1dbee80-0942-11ea-89a7-bb5ea84f11d4.png">
+
+<img width="836" alt="image" src="https://user-images.githubusercontent.com/33333983/69008486-06d06180-0943-11ea-87a5-d1361d325bc9.png">
