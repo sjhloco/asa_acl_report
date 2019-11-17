@@ -73,7 +73,7 @@ If the acl or acl_brief filename cannot located in the home directory you will b
 
 If the filename entered already exists you will be prompted to ovewrite it or re-enter a new name.
 
-<img width="819" alt="image" src="https://user-images.githubusercontent.com/33333983/69009301-fe305900-094b-11ea-82e8-be8d5c79278f.png">
+<img width="814" alt="image" src="https://user-images.githubusercontent.com/33333983/69009406-c675e100-094c-11ea-8642-d1b587a15cc2.png">
 
 If the address entered is not in a valid IPv4 format or the ACL does not exist (on the ASA or in the ACL file) the script will fail with details of the offending item.
 
