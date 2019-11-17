@@ -34,25 +34,31 @@ python asa_acl_report.py
 
 <img width="819" alt="image" src="https://user-images.githubusercontent.com/33333983/69007995-52800c80-093d-11ea-970a-191c5f8b194b.png">
 
-### Run against an ASA
+### Run against ASA
 When running against a device the IP adddress, username and password are required.
+
 <img width="809" alt="image" src="https://user-images.githubusercontent.com/33333983/69008179-84926e00-093f-11ea-8669-3644036069d8.png">
 
 If any of these are entered details are incorrec you will get a descriptive error message and be prompted to enter again.
-<img width="806" alt="image" src="https://user-images.githubusercontent.com/33333983/69008216-008cb600-0940-11ea-997a-10ed54971e97.png">
-<img width="822" alt="image" src="https://user-images.githubusercontent.com/33333983/69008225-11d5c280-0940-11ea-9b5d-d40120f64ebc.png">
 
-### Run against a file
+<img width="806" alt="image" src="https://user-images.githubusercontent.com/33333983/69008216-008cb600-0940-11ea-997a-10ed54971e97.png">
+<img width="812" alt="image" src="https://user-images.githubusercontent.com/33333983/69008374-86f5c780-0941-11ea-8d45-74b4cdbe9cb7.png">
+
+### Run against file
 When running against files you must specify the full filename (including extensions) and the script will by default look in your home directory for it. The files will be santarised to remove any unneeded blank lines and cmds as well as ensuring that it is not the output of *show run access-list*.
+
 <img width="818" alt="image" src="https://user-images.githubusercontent.com/33333983/69008242-519caa00-0940-11ea-9330-11fecbe54e62.png">
 
 If the filename cannot located in the home directory the user will be prompted to check and re-enter.
+
 <img width="699" alt="image" src="https://user-images.githubusercontent.com/33333983/69008279-9de7ea00-0940-11ea-95d4-9800d7b04cea.png">
 
 If you only want a full list of all ACEs in all the ACLs you can leave the the next two options blank and just enter the filename where the results will be stored.
+
 <img width="812" alt="image" src="https://user-images.githubusercontent.com/33333983/69008305-d7205a00-0940-11ea-90d5-17857d936d1c.png">
 
 If the filename entered already exists you will be prompted to ovewrite it or re-enter a new name.
+
 <img width="801" alt="image" src="https://user-images.githubusercontent.com/33333983/69008332-236b9a00-0941-11ea-8a65-2ca69d9c454e.png">
 
 ## Filtering
