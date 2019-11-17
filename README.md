@@ -39,22 +39,20 @@ When running against a device the IP adddress, username and password are require
 
 <img width="809" alt="image" src="https://user-images.githubusercontent.com/33333983/69008179-84926e00-093f-11ea-8669-3644036069d8.png">
 
-
-
 ### Run against File
 When running against files you must specify the full filename (including extensions) and the script will by default look in your home directory for them. The files will be sanitized to remove any unneeded blank lines and commands as well as ensuring that it is not the output of *show run access-list*.
 
-<img width="818" alt="image" src="https://user-images.githubusercontent.com/33333983/69008242-519caa00-0940-11ea-9330-11fecbe54e62.png">
+<img width="836" alt="image" src="https://user-images.githubusercontent.com/33333983/69008920-fa9ad300-0947-11ea-8595-711a10b0744b.png">
 
 ### Results
 If you only want a full list of all ACEs in all the ACLs you can leave the the next two options blank and just enter the filename where the results will be stored.
 
-<img width="812" alt="image" src="https://user-images.githubusercontent.com/33333983/69008305-d7205a00-0940-11ea-90d5-17857d936d1c.png">
+<img width="840" alt="image" src="https://user-images.githubusercontent.com/33333983/69008932-23bb6380-0948-11ea-9555-d9bee32c6fb6.png">
 
 ## Filtering
 The report that is generated can be filtered down to specific addresses, ACLs, or a combination of both. All must be separated by a space and be either a valid address (no prefix or subnet mask supported) or a valid ACL name on the ASA (be careful with capitalization).
 
-<img width="829" alt="image" src="https://user-images.githubusercontent.com/33333983/69008443-709c3b80-0942-11ea-8db3-6b925e0830da.png">
+![image](https://user-images.githubusercontent.com/33333983/69008956-5ebd9700-0948-11ea-99fd-12cecb4c0125.png)
 
 ## Error Handling
 If any of the ASA login details are incorrect you will get a descriptive error message and be prompted to re-enter.
