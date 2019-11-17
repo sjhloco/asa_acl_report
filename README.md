@@ -52,14 +52,14 @@ If you only want a full list of all ACEs in all the ACLs you can leave the the n
 ## Filtering
 The report that is generated can be filtered down to specific addresses, ACLs, or a combination of both. All must be separated by a space and be either a valid address (no prefix or subnet mask supported) or a valid ACL name on the ASA (be careful with capitalization).
 
-![image](https://user-images.githubusercontent.com/33333983/69008956-5ebd9700-0948-11ea-99fd-12cecb4c0125.png)
+<img width="819" alt="image" src="https://user-images.githubusercontent.com/33333983/69009005-cbd12c80-0948-11ea-9db1-5345dd9294ee.png">
 
 ## Error Handling
 If any of the ASA login details are incorrect you will get a descriptive error message and be prompted to re-enter.
 
 <img width="822" alt="image" src="https://user-images.githubusercontent.com/33333983/69008411-10a59500-0942-11ea-92a2-40631cce221f.png">
 
-If the acl or acl_breif filename cannot located in the home directory you will be prompted to check and re-enter.
+If the acl or acl_brief filename cannot located in the home directory you will be prompted to check and re-enter.
 
 <img width="699" alt="image" src="https://user-images.githubusercontent.com/33333983/69008279-9de7ea00-0940-11ea-95d4-9800d7b04cea.png">
 
