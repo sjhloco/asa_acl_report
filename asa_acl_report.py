@@ -25,7 +25,7 @@ def start():
     global against_asa
 
     print()
-    print('=' * 30, 'ASA ACL Auditer v0.3 (tested 9.6)', '=' * 30)
+    print('=' * 30, 'ASA ACL Auditor v0.3 (tested 9.6)', '=' * 30)
     print('This tool can be used to search specific IP addresses or all IPs in specific or all ACLs')
     print('If filtering IP addresses leave a blank space between entries')
     print('If filtering ACLs leave a blank space between entries and ensure capitliaztion is correct')
@@ -76,7 +76,7 @@ def checks_files():
 
     acl_file_exists = False
     acl_brief_file_exists = False
-    print("\nThe results of show access-list and show access-list <name> brief must be in seperate files.")
+    print("\nThe results of show access-list and show access-list <name> brief must be in separate files.")
     print("Make sure that both files are already in your home directory before continuing.")
 
     while acl_file_exists is False:
@@ -122,14 +122,14 @@ def checks_files():
 def gather_info():
     global filename
     # Prompts user to enter the IPs to be searched and makes a list of them.
-    print("\nIP: Enter the IPs you want to search for in the ACLs seperated by a space. Leave blank to search all IPs.")
+    print("\nIP: Enter the IPs you want to search for in the ACLs separated by a space. Leave blank to search all IPs.")
     ips_entered = input('> ')
     search_ips = []
     if len(ips_entered) != 0:
         search_ips = ips_entered.split(' ')
 
     # Prompts user to enter the ACLs to be searched and makes a list of them.
-    print("\nACL: Enter the names of the ACLs you want to search in seperated by a space. Leave blank to search all ACLs.")
+    print("\nACL: Enter the names of the ACLs you want to search in separated by a space. Leave blank to search all ACLs.")
     acls_entered = input('> ')
     acl_names = []
     if len(acls_entered) != 0:
