@@ -25,7 +25,7 @@ def start():
     global against_asa
 
     print()
-    print('=' * 30, 'ASA ACL Auditor v0.3 (tested 9.6)', '=' * 30)
+    print('=' * 30, 'ASA ACL Auditor v0.2 (tested 9.6)', '=' * 30)
     print('This tool can be used to search specific IP addresses or all IPs in specific or all ACLs')
     print('If filtering IP addresses leave a blank space between entries')
     print('If filtering ACLs leave a blank space between entries and ensure capitliaztion is correct')
