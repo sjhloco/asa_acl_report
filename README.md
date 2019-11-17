@@ -35,7 +35,7 @@ The info gathered in the script is all done from user interaction once the scrip
 python asa_acl_report.py
 ```
 
-<img width="830" alt="image" src="https://user-images.githubusercontent.com/33333983/69009226-5dda3480-094b-11ea-95bd-c66a69f0bfb4.png">
+<img width="835" alt="image" src="https://user-images.githubusercontent.com/33333983/69009379-87479000-094c-11ea-977b-e43c27e2aba7.png">
 
 ### Run against ASA
 
