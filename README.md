@@ -27,7 +27,7 @@ csv_columns = ['ACL Name', 'Line Number', 'Access', 'Protocol', 'Source Address'
 
 ## Usage
 
-The information gathered in the script is all done from user interaction once the script has been run. To get started enter:
+The info gathered in the script is all done from user interaction once the script has been run. To get started enter:
 ```
 python asa_acl_report.py
 ```
