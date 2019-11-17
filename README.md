@@ -1,36 +1,36 @@
 # ASA ACL Report
 
-ASA ACL Auditer v0.2 (tested 9.6)
+ASA ACL Auditor v0.3 (tested 9.6)
 
-This tool will create a CSV file of the ACLs on an ASA with details of the hit counts and the last time the rule was hit. The results can be filtered down to a specific subset of ACLs and addresses.
+Creates a CSV file of the ACLs on an ASA with details of the hit counts and the last time the rule was hit. The results can be filtered down to a specific subset of ACLs and addresses.
 
-IMAGE
+<img width="819" alt="image" src="https://user-images.githubusercontent.com/33333983/69007995-52800c80-093d-11ea-970a-191c5f8b194b.png">
 
-The report can either be generated from the ASA or offline and run against previously extracted command outputs.
-To run offline you need to collect the following information and save in separate files in your home directory:
-**-ACLs** *(mandatory)*: All the expanded access-lists (*show access-list*) you wish to evaluate against stored in the 1 single file.
-**-ACL Brief** *(optional)*: To get the timestamp of the last hit must have a second file with *show access-list <name> brief* for the ACLs. Any ACLs without this file you will not get the timestamp information in the csv.
+The report can either be generated from the ASA or generated offline by running against previously extracted command outputs. To run offline you need to collect the following information and save in separate files in your home directory:
+
+-**ACLs** *(mandatory)*: All the expanded access-lists (*show access-list*) you wish to evaluate against stored in the 1 single file.
+-**ACL Brief** *(optional)*: To get the timestamp of the last hit must have a second file with *show access-list <name> brief* for the ACLs. Any ACLs without this file you will not get the timestamp information in the csv.
 
 ## Prerequisites
 
 The only extra package required to run this is netmiko, this is used for the SSH connections to the device. To install
-'''
+```
 pip install -r requirements.txt
-'''
+```
 
 The first section of the script is the Variables section. In here you can change the default directory location (where it saves the CSV and looks for offline files) and customize the CSV header names.
-'''json
+```json
 directory = expanduser("~")
 csv_columns = ['ACL Name', 'Line Number', 'Access', 'Protocol', 'Source Address', 'Source Port',
                'Destination Address', 'Destination Port', 'Hit Count', 'Date Last Hit', 'Time Last Hit']
-'''
+```
 
 ## Usage
 
 The information gathered in the script is all done from user interaction once the script has been run. To get started enter:
-'''
+```
 python asa_acl_report.py
-'''
+```
 
 IMAGE
 
