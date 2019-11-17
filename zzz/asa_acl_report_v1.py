@@ -25,7 +25,7 @@ def start():
     global against_asa
 
     print()
-    print('=' * 30, 'ASA ACL Auditer v0.3 (tested 9.6)', '=' * 30)
+    print('=' * 30, 'ASA ACL Auditer v0.2 (tested 9.6)', '=' * 30)
     print('This tool can be used to search specific IP addresses or all IPs in specific or all ACLs')
     print('If filtering IP addresses leave a blank space between entries')
     print('If filtering ACLs leave a blank space between entries and ensure capitliaztion is correct')
@@ -33,7 +33,7 @@ def start():
     print()
     print('If searching against a file put all the ACLs in the one file. They must be expanded access-lists (show access-list)')
     print('To get the timestamp of last hit must have a second file with show access-list <name> brief for the ACLs (optional)')
-    print('Both the ACL and ACL brief files should be stored in your home directory')
+    print('Both the ACL abd ACL brief files should be stored in your home directory')
     print()
     # Options of whether to test against an ASA or a static file.
     while True:
@@ -47,13 +47,12 @@ def start():
             break
         elif answer == '2':
             against_asa = False
-            #gather_info()
-            checks_files()   # Check files are valid
+            gather_info()
             break
         else:
             print('\n!!! ERROR - Response not understood, please try again !!!\n')
 
-# 2a. ASA ONLY - Gets username/password and checks connectivity
+# 2. Gets username/password and checks connectivity
 def test_login():
     global net_conn             # Make connection variable global so can be used in all functions
 
@@ -67,54 +66,6 @@ def test_login():
             break
         except Exception as e:              # If login fails loops to begining with the error message
             print(e)
-
-    gather_info()                   # Runs next function
-
-# 2b. FILE ONLY - Prompts user to enter the name of the files to be loaded. If cant find them prompts user to re-enter
-def checks_files():
-    global acl1, acl_brief2
-
-    acl_file_exists = False
-    acl_brief_file_exists = False
-    print("\nThe results of show access-list and show access-list <name> brief must be in seperate files.")
-    print("Make sure that both files are already in your home directory before continuing.")
-
-    while acl_file_exists is False:
-        print("\nACL_FILE: Enter the full filename (including extension) of the file containing all the ACLs output.")
-        filename = input('> ')
-        filename = os.path.join(directory, filename)
-        if not os.path.exists(filename):
-            print('!!! ERROR - Cant find the file, was looking for {} !!!'.format(filename))
-            print('Make sure it is in home directory and named correctly before trying again.')
-        else:
-            acl_file_exists = True
-
-    while acl_brief_file_exists is False:
-        print("\n-ACL_BR_FILE: Enter the full filename (including extension) of the file containing the ACL brief output (optional).")
-        acl_brief2 = input('> ')
-        if len(acl_brief2) != 0:
-            acl_brief2 = os.path.join(directory, acl_brief2)
-            if not os.path.exists(acl_brief2):
-                print('!!! ERROR - Cant find the file, was looking for {} !!!'.format(acl_brief2))
-                print('Make sure it is in home directory and named correctly before trying again.')
-            else:
-                acl_brief_file_exists = True
-        else:
-            acl_brief_file_exists = True
-
-    # Runs checks against the ACL file to make sure is valid and normalizes it
-    with open(filename) as var:
-        acl1 = var.read().splitlines()
-    # Remove all lines that arent ACEs
-    for x in list(acl1):
-        if (len(x) == 0) or ('show' in x) or ('access-list' not in x) or ('elements' in x) or ('cached' in x) or ('remark' in x):
-            acl1.remove(x)
-    # Exits script if no hitcnt as means user has done show run access-list
-    for x in acl1:
-        if 'hitcnt' not in x:
-            print('!!! ERROR - No hitcnt in {}, the file is incompatible with this script !!!'.format(filename))
-            print('Check the file and make sure you have done "show access-list" and NOT "show RUN access-list"')
-            exit()
 
     gather_info()                   # Runs next function
 
@@ -207,8 +158,51 @@ def verify(search_ips, acl_names):
         # Run next function
         get_acl(search_ips, acl_names)
 
-    # FILE ONLY - Creates a list of ACL names from the acl file to compare against the user entered ACL names
+   # FILE ONLY - Prompts user to enter the name of the files to be loaded. If cant find them prompts user to re-enter
     elif against_asa is False:
+        acl_file_exists = False
+        acl_brief_file_exists = False
+        print("\nThe results of show access-list and show access-list <name> brief must be in seperate files.")
+        print("Make sure that both files are already in your home directory before continuing.")
+
+        while acl_file_exists is False:
+            print("\nACL_FILE: Enter the full filename (including extension) of the file containing all the ACLs output.")
+            filename = input('> ')
+            filename = os.path.join(directory, filename)
+            if not os.path.exists(filename):
+                print('!!! ERROR - Cant find the file, was looking for {} !!!'.format(filename))
+                print('Make sure it is in home directory and named correctly before trying again.')
+            else:
+                acl_file_exists = True
+
+        while acl_brief_file_exists is False:
+            print("\n-ACL_BR_FILE: Enter the full filename (including extension) of the file containing the ACL brief output (optional).")
+            acl_brief2 = input('> ')
+            if len(acl_brief2) != 0:
+                acl_brief2 = os.path.join(directory, acl_brief2)
+                if not os.path.exists(acl_brief2):
+                    print('!!! ERROR - Cant find the file, was looking for {} !!!'.format(acl_brief2))
+                    print('Make sure it is in home directory and named correctly before trying again.')
+                else:
+                    acl_brief_file_exists = True
+            else:
+                acl_brief_file_exists = True
+
+        # Runs checks against the ACL file to make sure is valid and normalizes it
+        with open(filename) as var:
+            acl1 = var.read().splitlines()
+        # Remove all lines that arent ACEs
+        for x in list(acl1):
+            if (len(x) == 0) or ('show' in x) or ('access-list' not in x) or ('elements' in x) or ('cached' in x) or ('remark' in x):
+                acl1.remove(x)
+        # Exits script if no hitcnt as means user has done show run access-list
+        for x in acl1:
+            if 'hitcnt' not in x:
+                print('!!! ERROR - No hitcnt in {}, the file is incompatible with this script !!!'.format(filename))
+                print('Check the file and make sure you have done "show access-list" and NOT "show RUN access-list"')
+                exit()
+
+        # Creates a list of ACL names from the acl file to comapre against the user entered ACL names
         file_acls = []
         for x in acl1:
             y = x.lstrip()
@@ -263,7 +257,7 @@ def filter_acl(search_ips, acl_names, acl1):
     # To get all ACL entries from all ACLs
     if len(search_ips) == 0 and len(acl_names) == 0:
         acl = acl1
-    # To get certain ACL entries from specific acls
+    # To get certain ACL entries from specific acls    
     elif (len(acl_names) != 0) and (len(search_ips) != 0):
         acl2 = []
         for x in acl_names:
