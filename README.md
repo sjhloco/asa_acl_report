@@ -4,12 +4,12 @@ ASA ACL Auditor v0.3 (tested 9.6)
 
 Creates a CSV file of the ACLs on an ASA with details of the hit counts and the last time the rule was hit. The results can be filtered down to a specific subset of ACLs and addresses.
 
-<img width="819" alt="image" src="https://user-images.githubusercontent.com/33333983/69007995-52800c80-093d-11ea-970a-191c5f8b194b.png">
+![image](https://user-images.githubusercontent.com/33333983/69008066-071a2e00-093e-11ea-9422-9a34d598e835.png)
 
 The report can either be generated from the ASA or generated offline by running against previously extracted command outputs. To run offline you need to collect the following information and save in separate files in your home directory:
 
--**ACLs** *(mandatory)*: All the expanded access-lists (*show access-list*) you wish to evaluate against stored in the 1 single file.
--**ACL Brief** *(optional)*: To get the timestamp of the last hit must have a second file with *show access-list <name> brief* for the ACLs. Any ACLs without this file you will not get the timestamp information in the csv.
+- **ACLs** *(mandatory)*: All the expanded access-lists (*show access-list*) you wish to evaluate against stored in the 1 single file.
+- **ACL Brief** *(optional)*: To get the timestamp of the last hit must have a second file with *show access-list <name> brief* for the ACLs. Any ACLs without this file you will not get the timestamp information in the csv.
 
 ## Prerequisites
 
@@ -32,7 +32,7 @@ The information gathered in the script is all done from user interaction once th
 python asa_acl_report.py
 ```
 
-IMAGE
+<img width="819" alt="image" src="https://user-images.githubusercontent.com/33333983/69007995-52800c80-093d-11ea-970a-191c5f8b194b.png">
 
 - When running against a device the IP adddress, username and password are required.
 
