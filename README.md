@@ -41,7 +41,7 @@ When running against a device the IP adddress, username and password are require
 
 
 
-### Run against file
+### Run against File
 When running against files you must specify the full filename (including extensions) and the script will by default look in your home directory for them. The files will be santarised to remove any unneeded blank lines and commands as well as ensuring that it is not the output of *show run access-list*.
 
 <img width="818" alt="image" src="https://user-images.githubusercontent.com/33333983/69008242-519caa00-0940-11ea-9330-11fecbe54e62.png">
