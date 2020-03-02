@@ -1,0 +1,46 @@
+Change it so that can run as follows:
+
+python asa_acl_report.py -d <device> user -ip x.x.x.x -acl outside
+-f is file
+-d is device
+
+
+
+If -ip used and no value prompts userf or list of ips seperated by space
+If -acl and no value prompts user for list of acls seperated by space
+If -ip and -acl prompts user for both ips and acls
+If none just doesnt prompt for nayhting to filter with
+
+Output in Excel rahter than CSV. Bold the tilte, make grey, maybe shade different ACLs.
+Create pytest for it
+
+
+When run with no flags will do both and save to a file called version_report in home directory.
+Use table for Table only, csv for CSV only, -l to change location, -f to change filename and -h for help
+
+
+# Optional flags user can enter to customise what is run, if nothing is entered uses the default options
+parser = argparse.ArgumentParser()
+parser.add_argument('output', default='both', nargs='?', choices=['csv', 'table', 'both'], help='Display a Table or Save as a CSV (default: %(default)s)')
+parser.add_argument('-f', '--filename', default=file_name, help='Name of the CSV (default: %(default)s)')
+parser.add_argument('-l', '--location', default=directory, help='Location to save the CSV (default: %(default)s)')
+args = vars(parser.parse_args())
+
+
+
+# Checks that the entered location exists.
+if args['location'] != directory:
+    if not os.path.exists(args['location']):
+        print('!!! Error with the location {}. Double check and rerun or leave blank to use the default of home directory!!!'.format(args['location']))
+        exit(0)
+
+# Runs the functions based on options entered
+results = []
+get_details()
+if args['output'] == 'table':
+    create_table()
+elif args['output'] == 'csv':
+    create_csv()
+elif args['output'] == 'both':
+    create_table()
+    create_csv()
