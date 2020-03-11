@@ -359,6 +359,7 @@ def format_data(search_ips, acl_names, acl):
             del x[7]
             (x.insert(8, '255.255.255.255'))
         acl4.append(x)
+
     # 10. Convert subnet mask to prefix and padout old mask with 'any1'
     for x in acl4:
         if x[4] != 'any':
