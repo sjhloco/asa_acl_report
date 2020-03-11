@@ -86,15 +86,15 @@ File /Users/mucholoco/10.10.10.1_ACLreport_20200311.xlsx has been created
 
 If any of the ASA login details are incorrect you will get a descriptive error message and be prompted to re-enter.
 
-<img width="822" alt="image" src="https://user-images.githubusercontent.com/33333983/69008411-10a59500-0942-11ea-92a2-40631cce221f.png">
+IMAGE
 
 If the acl or acl_brief filename cannot located in the home directory you will be prompted to check and re-enter.
 
-<img width="814" alt="image" src="https://user-images.githubusercontent.com/33333983/69009286-cf19e780-094b-11ea-8ca6-d3c5c0016401.png">
+IMAGE
 
 If the filename entered already exists you will be prompted to ovewrite it or re-enter a new name.
 
-<img width="814" alt="image" src="https://user-images.githubusercontent.com/33333983/69009406-c675e100-094c-11ea-8642-d1b587a15cc2.png">
+IMAGE
 
 If the address entered is not in a valid IPv4 format or the ACL does not exist (on the ASA or in the ACL file) the script will fail with details of the offending item.
 
