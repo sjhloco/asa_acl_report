@@ -1,65 +1,86 @@
 # ASA ACL Report
 
-ASA ACL Auditor v0.2 (tested 9.6)
+ASA ACL Auditor v0.3 (tested 9.6)
 
-Creates a CSV file of the ACLs on an ASA with details of the hit counts and the last time the rule was hit. The results can be filtered down to a specific subset of ACLs and addresses.
+Creates an XL sheet of the ACLs on an ASA with details of the hit counts and the last time the rule was hit. Rules that have been hit in the last day, 7 days and 30 days are colourised and filters added to the header to aid in filtering down large rule bases.
 
-![image](https://user-images.githubusercontent.com/33333983/69008082-36c93600-093e-11ea-9fcf-7d795248108f.png)
+The report can be run against an ASA or or offline by agaisnt a text file of the ASAs rule base. Either method can be filtered down to a subset of IP address and/or ACL names.
 
-The report can either be generated from the ASA or generated offline by running against previously extracted command outputs. To run offline you need to collect the following info and save it in separate files in your home directory:
+IMAGE
+
+To run offline you need to collect the following info and save it in separate files in your home directory:
 
 - **ACLs** *(mandatory)*: All the expanded access-lists (*show access-list*) you wish to evaluate against stored in the one single file.
-- **ACL Brief** *(optional)*: To get the timestamp of the last hit you must have a second file with *show access-list <name> brief* for the ACLs. Any ACLs without this file you will not get the timestamp information in the csv.
+- **ACL Brief** *(optional)*: To get the timestamp of the last hit you must have a second file with *show access-list <name> brief* for the ACLs. Any ACLs without this file you will have the timestamp information in the xl sheet..
 
 ## Prerequisites
 
-The only extra package required to run this is netmiko, itis used for the SSH connections to the device.
+The only extra packages required to run this are netmiko and openpyxl.
 
 ```bash
 pip install -r requirements.txt
 ```
 
-The first section of the script is the customisable variables. You can change the default directory location (where it saves the CSV and looks for offline files) and the CSV header names.
+The first section of the script is the customisable default values. There is the option to change the default directory location (where to looks for offline files and saves the report), the report name, the device to run it against and the XL header names (including column widths).
 
 ```bash
 directory = expanduser("~")
-csv_columns = ['ACL Name', 'Line Number', 'Access', 'Protocol', 'Source Address', 'Source Port',
-               'Destination Address', 'Destination Port', 'Hit Count', 'Date Last Hit', 'Time Last Hit']
+device = 'ste@10.10.10.1'
+eport_name = device.split('@')[1] + '_ACLreport_' + date.today().strftime('%Y%m%d')
+header = {'ACL Name':22, 'Line Number':17, 'Access':10, 'Protocol':12, 'Source Address':19, 'Source Port':16, 'Destination Address':24,
+          'Destination Port':20, 'Hit Count':14, 'Date Last Hit':17, 'Time Last Hit':17}
 ```
 
 ## Usage
 
-The info gathered in the script is all done from user interaction once the script has been run. To get started enter:
+When executed with no flags it runs against the default device, does no IP or ACL filtering and saves the output in a file called device_ACLreport_yyyymmdd in the users home directory. The following optional options (flags) can be used at runtime.
 
 ```bash
-python asa_acl_report.py
+*-f or --filename:* Name of the files (ACL and optionally ACL bBief) to run the script against. If no file it will use the device
+*-d or --device:* Username and device (username@device) to run the script against
+*- or --ip:* IP addresses or networks (no prefix) seperated by spaces to filter against
+*-a or --acl:* ACL names seperated by spaces to filter against
+*-l or --location:* Location where the offlien files are stored as well as the location to save the report to.
+*-n or --name:* Name of the report
 ```
 
 <img width="835" alt="image" src="https://user-images.githubusercontent.com/33333983/69009379-87479000-094c-11ea-977b-e43c27e2aba7.png">
 
-### Run against ASA
+### Run against ASA *-d*
 
-When running against a device the IP adddress, username and password are required.
+When running against a device the IP adddress and username are entered in the cmd and the password prompted for. The script will always run against a device, be it the default or specified one if the -f flag (and filename) is not used.
 
-<img width="809" alt="image" src="https://user-images.githubusercontent.com/33333983/69008179-84926e00-093f-11ea-8669-3644036069d8.png">
+```bash
+$python asa_v2.py -d ste@10.10.10.1
+
+============================== ASA ACL Auditor v0.3 (tested 9.6) ==============================
+Checking the options entered are valid...
+Enter the ASA password:
+```
 
 ### Run against File
 
-When running against files you must specify the full filename (including extensions) and the script will by default look in your home directory for them. The files will be sanitized to remove any unneeded blank lines and commands as well as ensuring that it is not the output of *show run access-list*.
+When running against files users only need to specify the filename (including extensions) and the script will by default look in their home directory for them. The files will be sanitized by the script to remove any unneeded blank lines and commands as well as ensuring that it is not the output of *show run access-list*.
 
-<img width="836" alt="image" src="https://user-images.githubusercontent.com/33333983/69008920-fa9ad300-0947-11ea-8595-711a10b0744b.png">
+```bash
+$python asa_v2.py -f acl.txt acl_brief.txt
+```
 
-### Results
+### Filtering
 
-If you only want a full list of all ACEs in all the ACLs you can leave the the next two options blank and just enter the filename where the results will be stored.
+To gather a full list of all ACEs in all the ACLs their is no need to use the *-i* or *-a* flags. Alternatively, the report that is generated can be filtered down to specific addresses, ACLs, or a combination of both. All must be separated by a space and be either a valid address (no prefix or subnet mask supported) or a valid ACL name on the ASA (be careful with capitalization).
 
-<img width="809" alt="image" src="https://user-images.githubusercontent.com/33333983/69009271-a691ed80-094b-11ea-8163-714309f91a85.png">
+```bash
+$python asa_v2.py -d ste@10.10.10.1 -a data mgmt -i 10.10.20.254 10.10.10.71 10.10.10.50
 
-## Filtering
-
-The report that is generated can be filtered down to specific addresses, ACLs, or a combination of both. All must be separated by a space and be either a valid address (no prefix or subnet mask supported) or a valid ACL name on the ASA (be careful with capitalization).
-
-<img width="819" alt="image" src="https://user-images.githubusercontent.com/33333983/69009005-cbd12c80-0948-11ea-9db1-5345dd9294ee.png">
+============================== ASA ACL Auditor v0.3 (tested 9.6) ==============================
+Checking the options entered are valid...
+Enter the ASA password:
+Gathering ACL info from the ASA...
+Formatting the ACL data...
+Creating the spreadsheet...
+File /Users/mucholoco/10.10.10.1_ACLreport_20200311.xlsx has been created
+```
 
 ## Error Handling
 
