@@ -2,15 +2,15 @@
 
 ASA ACL Auditor v0.3 (tested 9.6)
 
-Creates an XL sheet of the ACLs on an ASA with details of the hit counts and the last time the rule was hit.\ 
-Rules that have been hit in the last day, 7 days and 30 days are colourised.\ 
+Creates an XL sheet of the ACLs on an ASA with details of the hit counts and the last time the rule was hit.\
+The row for rules that have been hit in the last day, 7 days and 30 days are colourised.\
 Filters added to the XL header to aid drilling down further in larger rule bases.
 
 The report can be run against an ASA or offline agaisnt a text file of the ASAs rule base. Either method can be filtered down to a subset of IP address and/or ACL names.
 
 ![image](https://user-images.githubusercontent.com/33333983/76520041-03b13200-645a-11ea-89f9-69203495963c.png)
 
-To run offline you need to collect the following information and save it in separate files in your home directory:
+To run offline you need to collect the following information and save it separate files in your home directory:
 
 - **ACLs** *(mandatory)*: All the expanded access-lists (*show access-list*) you wish to evaluate against stored in the one single file.
 - **ACL Brief** *(optional)*: To get the timestamp of the last hit you must have a second file with *show access-list <name> brief* for the ACLs. Any ACLs without this file will not have the timestamp information in the xl sheet.
@@ -46,8 +46,6 @@ When executed the script with no flags it will run against the default device, d
 *-n or --name:* Name of the report
 *-h, --help:* Information on these flags
 ```
-
-<img width="835" alt="image" src="https://user-images.githubusercontent.com/33333983/69009379-87479000-094c-11ea-977b-e43c27e2aba7.png">
 
 ### Run against ASA *(-d)*
 
@@ -97,7 +95,7 @@ If the acl or acl_brief filename cannot located in the home directory you will b
 
 If the destination filename entered already exists you will be prompted to ovewrite it or re-enter a new name.
 
-NEED TO WRITE
+![image](https://user-images.githubusercontent.com/33333983/76543551-9b287c00-647e-11ea-9098-2c93bdea69f6.png)
 
 If the address entered is not in a valid IPv4 format or the ACL does not exist (on the ASA or in the ACL file) the script will fail with details of the offending item.
 
