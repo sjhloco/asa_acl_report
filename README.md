@@ -3,7 +3,7 @@
 ASA ACL Auditor v0.3 (tested 9.6)
 
 Creates an XL sheet of the ACLs on an ASA with details of the hit counts and the last time the rule was hit.\
-The row for rules that have been hit in the last day, 7 days and 30 days are colourised.\
+The rows for rules that have been hit in the last day, 7 days and 30 days are colourised.\
 Filters have been added to the XL header to aid drilling down further in larger rule bases.
 
 The report can be run against an ASA or offline agaisnt a text file of the ASAs rule base. Either method can be filtered down to a subset of IP address and/or ACL names.
