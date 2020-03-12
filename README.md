@@ -4,7 +4,7 @@ ASA ACL Auditor v0.3 (tested 9.6)
 
 Creates an XL sheet of the ACLs on an ASA with details of the hit counts and the last time the rule was hit.\
 The row for rules that have been hit in the last day, 7 days and 30 days are colourised.\
-Filters added to the XL header to aid drilling down further in larger rule bases.
+Filters have been added to the XL header to aid drilling down further in larger rule bases.
 
 The report can be run against an ASA or offline agaisnt a text file of the ASAs rule base. Either method can be filtered down to a subset of IP address and/or ACL names.
 
@@ -87,7 +87,7 @@ File /Users/mucholoco/10.10.10.1_ACLreport_20200311.xlsx has been created
 
 If any of the ASA login details are incorrect you will get a descriptive error message and be prompted to re-enter.
 
-NEED IMAGE
+![image](https://user-images.githubusercontent.com/33333983/76544579-2fdfa980-6480-11ea-8b81-a00d414be60a.png)
 
 If the acl or acl_brief filename cannot located in the home directory you will be prompted to check and re-enter.
 
