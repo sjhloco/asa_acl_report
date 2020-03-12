@@ -2,7 +2,6 @@
 from asa_acl_report_v3 import Validate
 from asa_acl_report_v3 import Format_data
 import os
-import pytest
 
 ################# Variables to change dependant on environment #################
 directory = os.path.join(os.path.dirname(__file__), 'outputs')    # CSV file location, use __file__ to start from same directory as test scripts
@@ -16,8 +15,9 @@ def test_data_model():
     test = Validate(test_data_model_args)
     input_args = test.verify_args()
     acl_data = test.get_filter_acl()
-    assert input_args == [['acl_filter', 'acl_brief'], ['10.10.20.254', '10.10.10.51'], ['outside', 'data', 'mgmt'],
-                           '/Users/mucholoco/Documents/Coding/Python/code/asa_acl_report/test/outputs']
+    assert input_args == [['acl_filter', 'acl_brief'], None, ['10.10.20.254', '10.10.10.51'], ['outside', 'data', 'mgmt'],
+                           '/Users/mucholoco/Documents/Coding/Python/code/asa_acl_report/test/outputs', 'asa_report']
+
     assert acl_data == ['access-list outside line 10 extended permit udp object-group FIREWALLS host ' '10.10.20.254 eq domain (hitcnt=0) 0xb5663c34\n'
                         '  access-list outside line 10 extended permit udp host 172.168.255.2 host ' '10.10.20.254 eq domain (hitcnt=0) 0xf3128096\n'
                         '  access-list outside line 10 extended permit udp host 172.168.255.4 host ' '10.10.20.254 eq domain (hitcnt=0) 0x88a7cae6\n'

@@ -44,6 +44,7 @@ class Validate():
         self.filter_ip = args['ip']
         self.filter_acl = args['acl']
         self.location = args['location']
+        self.name = args['name']
 
 # Verify the arguments entered are valid
     def verify_args(self):
@@ -58,6 +59,7 @@ class Validate():
             if len(self.filename) == 2:
                 if not os.path.exists(os.path.join(self.location, self.filename[1])):
                     file_error.append(os.path.join(self.location, self.filename[1]))
+
             # Normalises file to remove non-ace lines
             if len(file_error) == 0:
                 with open(os.path.join(self.location, self.filename[0])) as var:
@@ -77,6 +79,21 @@ class Validate():
                         file_all_acls.append(y[1])
                     # Finds any specified ACLs not in the file
                     acl_error = set(self.filter_acl) - set(file_all_acls)
+
+            # NAME: If the file already exists user is asked whether they wish to overwrite it
+            file_exist = "yes"
+            while file_exist == "yes":
+                if os.path.exists(os.path.join(self.location, self.name + ".xlsx")):
+                    print("The output file already exist, do you want to overwrite it?")
+                    answer = input('y or n: ')
+                    if answer == 'n':
+                        self.name = input("Please enter a new name for the output file: ")
+                    elif answer == 'y':
+                        file_exist = "no"
+                    else:
+                        print("!!! Error - The only acceptable options are 'y' or 'n' !!!")
+                else:
+                    file_exist = "no"
 
         # DEVICE: Validate device is reachable and the username and password are correct
         elif self.filename == None:
@@ -123,7 +140,7 @@ class Validate():
         if len(file_error) != 0 or len(file_acl_error) !=0 or len(acl_error) != 0 or len(ip_error) != 0:
             exit()
 
-        return [self.filename, self.filter_ip, self.filter_acl, self.location]              # Used for unit testing
+        return [self.filename, self.device, self.filter_ip, self.filter_acl, self.location, self.name]              # Used for unit testing
 
 ################################## 3. Get and filter ACLs based on IP and name ##################################
     def get_filter_acl(self):
@@ -309,8 +326,7 @@ class Format_data():
 
 def create_xls(args, final_acl):
     print('Creating the spreadsheet...')
-
-    filename = os.path.join(args['location'], args['name'] + ".xlsx")
+    filename = os.path.join(args[4], args[5] + ".xlsx")
     # Create workbook with the one defaut sheet and rename it
     wb = Workbook()
     ws1 = wb.active
@@ -364,7 +380,7 @@ def main():
     args = create_parser()
     # 2. Validate the input data is correct
     run = Validate(args)
-    run.verify_args()
+    args = run.verify_args()
     # 3. Filter ACLs based on name and IP entered by user
     acl_data = run.get_filter_acl()
     # 4. Sanitise data into a correct format for the XL sheet
