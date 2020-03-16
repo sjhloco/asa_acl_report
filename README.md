@@ -38,13 +38,13 @@ header = {'ACL Name':22, 'Line Number':17, 'Access':10, 'Protocol':12, 'Source A
 When executed the script with no flags it will run against the default device, do no IP or ACL filtering and save the output to the file *~/device_ACLreport_yyyymmdd*. The following optional options (flags) can be used at runtime.
 
 ```bash
-*-f or --filename:* Name of the files (ACL and optionally ACL Brief) to run the script against. If no file is specified it will run agaisnt a device (be that the default or specified one)
-*-d or --device:* Username and device (*username@device*) to run the script against
-*- or --ip:* IP addresses or networks (no prefix) to filter against (seperated by spaces)
-*-a or --acl:* ACL names seperated by spaces to filter against
-*-l or --location:* Location where the offline files are stored as well as the location to save the report
-*-n or --name:* Name of the report
-*-h, --help:* Information on these flags
+-f or --filename: Name of the files (ACL and optionally ACL Brief) to run the script against. If no file is specified it will run agaisnt a device (be that the default or specified one)
+-d or --device: Username and device (*username@device*) to run the script against
+- or --ip: IP addresses or networks (no prefix) to filter against (seperated by spaces)
+-a or --acl: ACL names seperated by spaces to filter against
+-l or --location: Location where the offline files are stored as well as the location to save the report
+-n or --name: Name of the report
+-h, --help: Information on these flags
 ```
 
 ### Run against ASA *(-d)*
