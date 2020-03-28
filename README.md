@@ -8,7 +8,7 @@ Filters have been added to the XL header to aid drilling down further in larger 
 
 The report can be run against an ASA or offline against a text file of the ASAs rule base. Either method can be filtered down to a subset of IP address and/or ACL names.
 
-![image](https://user-images.githubusercontent.com/33333983/76520041-03b13200-645a-11ea-89f9-69203495963c.png)
+![image](https://user-images.githubusercontent.com/33333983/77829152-1f822c80-7118-11ea-83e8-1a431015f488.png)
 
 To run offline you need to collect the following information and save it to separate files in your home directory:
 
