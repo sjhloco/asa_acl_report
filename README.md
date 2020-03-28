@@ -105,5 +105,5 @@ If the filtered IP address entered is not in a valid IPv4 format or the ACL does
 
 ## Caveats
 
-Only extended ACLs are supported, including standard ACLs wont break it they will just be ignored like remarks statements.\
-The script has been tested against the different ACE entry patterns I can think of and have come across. There maybe other patterns that I havent thought about and missed, to fix any of these exceptions would need to be added to section 4 (*Sanitize the data*) of the code.
+Only extended ACLs are supported, including standard ACLs wont break it they will just be ignored like remark statements.\
+The script has been tested against the different ACE entry patterns I can think of and have come across. There maybe other patterns that I havent thought about and missed, to fix any of these exceptions they would need to be added to section 4 (*Sanitize the data*) of the code.
