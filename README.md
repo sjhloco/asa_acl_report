@@ -87,17 +87,17 @@ File /Users/mucholoco/10.10.10.1_ACLreport_20200311.xlsx has been created
 
 If any of the ASA login details are incorrect you will get a descriptive error message and be prompted to re-enter the password.
 
-![image](https://user-images.githubusercontent.com/33333983/77829630-23fc1480-711b-11ea-9a09-a51234b37da6.png)
+![image](https://user-images.githubusercontent.com/33333983/77829902-f3b57580-711c-11ea-8462-9f49cb3cd37b.png)
 
 If the acl or acl_brief filename cannot located in the home directory you will be prompted to check and re-enter.
 
-![image](https://user-images.githubusercontent.com/33333983/77829683-8ead5000-711b-11ea-91fe-c37131bc487a.png)
+![image](https://user-images.githubusercontent.com/33333983/77829881-c5379a80-711c-11ea-93ec-732229362289.png)
 
 If the destination filename entered already exists you will be prompted to ovewrite it or re-enter a new name.
 
 ![image](https://user-images.githubusercontent.com/33333983/77829760-0b402e80-711c-11ea-99ff-143a26f93676.png)
 
-If the address entered is not in a valid IPv4 format or the ACL does not exist (on the ASA or in the ACL file) the script will fail with details of the offending item.
+If the filtered IP address entered is not in a valid IPv4 format or the ACL does not exist (on the ASA or in the ACL file) the script will fail with details of the offending item or items.
 
 <img width="762" alt="image" src="https://user-images.githubusercontent.com/33333983/69009348-4e0f2000-094c-11ea-84df-5f0c452ea441.png">
 
