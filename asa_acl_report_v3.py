@@ -193,7 +193,7 @@ class Validate():
                     for file_ace in self.file_acl:
                         if filter_ace in file_ace:
                             acl.append(file_ace)
-    		#IP FILTER: To get specific ACE entries (based on ip) from all ACLs
+    	    #IP FILTER: To get specific ACE entries (based on ip) from all ACLs
             elif self.filter_ip != None:
                 for filter_ip in self.filter_ip:
                     for file_ace in self.file_acl:
@@ -345,7 +345,7 @@ def create_xls(args, final_acl):
     ws1 = wb.active
     ws1.title = "ACL Report"
 
-    #Add the headers, set font, colour and column width (from header dictionary)
+    # Add the headers, set font, colour and column width (from header dictionary)
     for col, head in zip(range(1,len(header) + 1), header.items()):
         ws1['{}1'.format(get_column_letter(col))] = head[0]      # get_column_letter converts number to letter
         ws1['{}1'.format(get_column_letter(col))].fill = PatternFill(bgColor=colors.Color("00DCDCDC"))
