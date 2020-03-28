@@ -22,7 +22,7 @@ device = 'ste@10.10.10.1'
 report_name = device.split('@')[1] + '_ACLreport_' + date.today().strftime('%Y%m%d')
 # Header names and columns widths for the XL sheet
 header = {'ACL Name':22, 'Line Number':17, 'Access':10, 'Protocol':12, 'Source Address':19, 'Source Port':16, 'Destination Address':24,
-          'Destination Port':20, 'Hit Count':14, 'Date Last Hit':17, 'Time Last Hit':17}
+          'Destination Port':20, 'Hit Count':14, 'Date Last Hit':17, 'Time Last Hit':17, 'State':10}
 
 ################################## 1. User input collected ##################################
 # Optional flags user can enter to customise what is run, if nothing is entered uses the default options
@@ -231,24 +231,21 @@ class Format_data():
         # 4b. Clean up ACL by removing remarks and informational data (from ASA output, file was already done), produces a list
         self.acl = self.acl.splitlines()
         for x in self.acl:              # Have to use the while loop as .remove() only removes first match from the list
-            while ('elements' in x) or ('cached' in x) or ('alert-interval' in x) or ('remark' in x) or (len(x) == 0):
+            while ('elements' in x) or ('cached' in x) or ('alert-interval' in x) or ('remark' in x) or ('standard' in x) or (len(x) == 0):
                 for x in self.acl:
-                    if ('elements' in x) or ('cached' in x) or ('alert-interval' in x) or ('remark' in x) or (len(x) == 0):
+                    if ('elements' in x) or ('cached' in x) or ('alert-interval' in x) or ('remark' in x) or ('standard' in x) or (len(x) == 0):
                         self.acl.remove(x)
 
-        # 4c. Remove unneeded fields, logging info and lines with object-group to leave only the actual data
-        acl_temp1 = []
+        # 4c. Remove unneeded fields, and lines with object to leave only the actual data
+        acl_temp1, acl_temp2, acl_temp3, acl_temp4, acl_temp5 = ([] for i in range(5))
         for ace in self.acl:
-            if 'object-group' not in ace:     	# Remove all lines with object-group
+            if 'object' not in ace:     	    # Remove all lines with object
                 ace_1 = ace.strip().split(' ')  # Removes starting/ trailing whitespaces before splitting at any other whitespaces
                 for field in [0, 1, 2]:         # Deletes first 3 fields (access-list, line and extended)
                     del ace_1[field]
-                if 'log' in ace_1:              # If ACL is logging removes log and 3 fields after (log notifications interval 300)
-                    del ace_1[-6:-2]
                 acl_temp1.append(ace_1)
 
         # 4d. Normalise source ports by joining range, removing eq and padding out if their is no source port
-        acl_temp2 = []
         for ace in acl_temp1:
             if ace[6] == 'range':             	# If has a source range of ports replace "range" with "start-end" port numbers
                 start = ace.pop(7)
@@ -261,25 +258,36 @@ class Format_data():
             acl_temp2.append(ace)
 
         # 4e. Normalise destination ports by joining range, removing eq and padding out if no source port
-        acl_temp3 = []
         for ace in acl_temp2:
             if 'range' in ace:
-                start = ace.pop(-4)
-                end = ace.pop(-3)
-                ace[-3] = start + '-' + end
+                start = ace.pop(10)
+                end = ace.pop(10)
+                ace[9] = start + '-' + end
             elif 'eq' in ace:
-                del ace[-4]
+                del ace[9]
             elif 'icmp' not in ace:
-                (ace.insert(-2, 'any_port'))
-            else:
-                if ('.' in ace[-3]) or (ace[-3] == 'any1'):
-                    (ace.insert(-2, 'any_port'))
+                (ace.insert(9, 'any_port'))
+            elif ace[9].isdigit() or ace[9] == 'log':
+                (ace.insert(9, 'any_port'))
             acl_temp3.append(ace)
-        # All lines now [name, num, permit/deny, protocol, src_ip, src_mask, src_port, dst_ip, dst_mask, dst_port, hitcnt, hash]
 
-        # 4f. For all host entries delete host and add /32 subnet mask after the IP
-        acl = []
+        # 4f. If ACL is logging removes log and all fields up to the hitcnt and hash
         for ace in acl_temp3:
+            if 'log' in ace:
+                del ace[10:-2]
+            acl_temp4.append(ace)
+
+       # 4g. If ACL is inatcive removes extra columns and adds 'inactive to last column
+        for ace in acl_temp4:
+            if 'inactive' in ace:
+                del ace[-2]
+                ace.append(ace.pop(ace.index('inactive')))
+            acl_temp5.append(ace)
+        # All lines now [name, num, permit/deny, protocol, src_ip, src_mask, src_port, dst_ip, dst_mask, dst_port, hitcnt, hash, inactice]
+
+        # 4h. For all host entries delete host and add /32 subnet mask after the IP
+        acl = []
+        for ace in acl_temp5:
             if ace[4] == 'host':						# if src_ip is /32
                 del ace[4]
                 (ace.insert(5, '255.255.255.255'))
@@ -288,13 +296,17 @@ class Format_data():
                 (ace.insert(8, '255.255.255.255'))
             acl.append(ace)
 
-        # 4g. Convert subnet mask to prefix and padout old mask with 'any1'
+        # 4i. Convert subnet mask to prefix and padout old mask with 'any1'. If interface name used in ace do same for that
         for ace in acl:
-            if ace[4] != 'any':										        # As long as is not 'any'
+            if ace[4] == 'interface':										# If interface is used in the ace change name for 'any1'
+                ace[5] = 'any1'
+            elif ace[4] != 'any':										        # As long as is not 'any'
                 src_pfx = IPv4Network((ace[4], ace[5])).with_prefixlen	    # Add prefix to the src_IP
                 ace[4] = src_pfx
                 ace[5] = 'any1'										        # Change old mask to 'any1'
-            if ace[7] != 'any':
+            if ace[7] == 'interface':
+                ace[5] = 'any1'
+            elif ace[7] != 'any':
                 dst_pfx = IPv4Network((ace[7], ace[8])).with_prefixlen		# Add prefix to the src_IP
                 ace[7] = dst_pfx
                 ace[8] = 'any1'
@@ -309,17 +321,18 @@ class Format_data():
     def lasthit_time(self, acl):
         # If ACE hash matches acl_brief hash the last hit date and time will be added
         for ace in acl:              						# loop through ACL
+            ace.insert(10, '')                              # Insert blank column to be used by the time
             for hashes in self.acl_brief:     				# Loop through acl_brief
-                if hashes.split(' ')[0] in ace[-1]:    		# If acl_brief hash matches ace hash
+                if hashes.split(' ')[0] in ace[9]:    		# If acl_brief hash matches ace hash
                     unix_time = hashes.split(' ')[-1]
                     # Convert last element to decimal and get human-readable time from the hex time
                     human_time = datetime.fromtimestamp(int(unix_time, 16)).strftime('%Y-%m-%d %H:%M:%S').split(' ')
-                    ace[-1] = human_time[0]					# Replaces hash with the date
-                    ace.append(human_time[1])				# Adds time as a new field
+                    ace[9] = human_time[0]					# Replaces hash with the date
+                    ace[10] = human_time[1]			    # Adds time to the new blank column that was added
         # If ACE does not have a matching hash entry hash is stripped out
         for lines in acl:
-            if len(lines) == 10:
-                del lines[-1]
+            if len(lines[10]) == 0:
+                lines[9] = None
         return(acl)
 
 ################################## 6. Build XL worksheet ##################################
@@ -347,8 +360,9 @@ def create_xls(args, final_acl):
     # Add a key at start with info on the colourised rows for ACEs with frequent hitcnts
     ws1.insert_rows(1)
     ws1.insert_rows(2)
-    keys = {'A1': 'Key:', 'B1':'Hit in last 1 day', 'E1':'Hit in last 7 days', 'G1':'Hit in last 30 days'}
-    colour  = {'B1':'E6B0AA', 'E1':'A9CCE3', 'G1':'F5CBA7'}
+    keys = {'A1': 'Key:', 'B1':'Hit in last 1 day', 'E1':'Hit in last 7 days', 'G1':'Hit in last 30 days', 'I1':'Inactive'}
+    colour  = {'B1':'E6B0AA', 'E1':'A9CCE3', 'G1':'F5CBA7', 'I1':'D4EFDF'}
+
     for cell, val in keys.items():
         ws1[cell] = val
     ws1['A1'].font = Font(bold=True)
@@ -356,7 +370,7 @@ def create_xls(args, final_acl):
         ws1[cell].fill = PatternFill(start_color=col, end_color=col, fill_type='solid')
 
     ws1.freeze_panes = ws1['A4']                    # Freezes the top row (A1) so remains when scrolling
-    ws1.auto_filter.ref = 'A3:K4'                   # Adds dropdown to headers to the headers
+    ws1.auto_filter.ref = 'A3:L4'                   # Adds dropdown to headers to the headers
 
     # Colours used for columns dependant on the last hit data (J column). Formula is a standard XL formula
     style_red = DifferentialStyle(fill=PatternFill(bgColor=colors.Color("00E6B0AA")))
@@ -365,9 +379,11 @@ def create_xls(args, final_acl):
     rule_7day = Rule(type="expression", formula=["=AND(TODAY()-$J1>=0,TODAY()-$J1<=7)"], dxf=style_blu)
     style_org = DifferentialStyle(fill=PatternFill(bgColor=colors.Color("00F5CBA7")))
     rule_30day = Rule(type="expression", formula=["=AND(TODAY()-$J1>=0,TODAY()-$J1<=30)"], dxf=style_org)
+    style_grn = DifferentialStyle(fill=PatternFill(bgColor=colors.Color("00D4EFDF")))
+    rule_inactive = Rule(type="expression",formula=['=$L1="inactive"'], dxf=style_grn)
 
     # Apply the rules to workbook and save it
-    for rule in [rule_1day, rule_7day, rule_30day]:
+    for rule in [rule_1day, rule_7day, rule_30day, rule_inactive]:
         ws1.conditional_formatting.add(ws1.dimensions, rule)
     wb.save(filename)
     print('File {} has been created'.format(filename))
