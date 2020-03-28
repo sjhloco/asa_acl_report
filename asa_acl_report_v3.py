@@ -391,7 +391,7 @@ def create_xls(args, final_acl):
 # ###################################### Run the scripts ######################################
 
 def main():
-    print('\n' + '=' * 30, 'ASA ACL Auditor v0.3 (tested 9.6)', '=' * 30)
+    print('\n' + '=' * 30, 'ASA ACL Auditor v0.3 (tested 9.8)', '=' * 30)
 	# 1. Gather input from user
     args = create_parser()
     # 2. Validate the input data is correct
