@@ -22,13 +22,13 @@ To run offline you need to collect the following information and save it to sepa
 Clone the repostitary and create a virtual environoment:
 
 ```bash
-https://github.com/sjhloco/asa_acl_report.git
+git clone https://github.com/sjhloco/asa_acl_report.git
 mkdir venv_asa_acl_report
 python3 -m venv mkdir venv_asa_acl_report
 source venv_asa_acl_report/bin/activate
 ```
 
-Now can install the packages required to run this script. The only extra packages required to run this are netmiko, openpyxl and pytest.
+Now can install the packages required to run this script. The only extra packages required to run this are netmiko, openpyxl and pytest (optional for unit testing).
 
 ```bash
 pip install -r asa_acl_report/requirements.txt
