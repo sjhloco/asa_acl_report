@@ -121,6 +121,8 @@ The script has been tested against the different ACE entry patterns I can think 
 
 The unit testing is performed only on the parts of the script that require no remote device interaction using dummy files in the directory test/outputs. There is a separate test function for the user input data and one for formatting the ACL into XL ready format and adding the hit count timestamp.
 
+```bash
 pytest -v
 pytest test/test_acl_report.py::test_data_mode -v
 pytest test/test_acl_report.py::test_format_data -v
+```
