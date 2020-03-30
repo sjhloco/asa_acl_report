@@ -15,12 +15,21 @@ To run offline you need to collect the following information and save it to sepa
 - **ACLs** *(mandatory)*: All the expanded access-lists (*show access-list*) to report against stored in the one single file.
 - **ACL Brief** *(optional)*: *show access-list acl_name brief* for all the the ACLs in the first file. Any ACLs without this file will not have the timestamp information of the last hit in the XL worksheet.
 
-## Prerequisites
+## Installation and Prerequisites
 
-The only extra packages required to run this are netmiko and openpyxl.
+Clone the repostitary and create a virtual environoment:
 
 ```bash
-pip install -r requirements.txt
+https://github.com/sjhloco/asa_acl_report.git
+mkdir venv_asa_acl_report
+python3 -m venv mkdir venv_asa_acl_report
+source venv_asa_acl_report/bin/activate
+```
+
+Now can install the packages required to run this script. The only extra packages required to run this are netmiko and openpyxl.
+
+```bash
+pip install -r asa_acl_report/requirements.txt
 ```
 
 The first section of the script is the customisable default values. There is the option to change the default directory location (where to looks for offline files and saves the report), the report name, the device to run against and the XL header names (including column widths).
