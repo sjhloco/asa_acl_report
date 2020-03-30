@@ -16,7 +16,7 @@ def test_data_model():
     input_args = test.verify_args()
     acl_data = test.get_filter_acl()
     assert input_args == [['acl_filter', 'acl_brief'], None, ['10.10.20.254', '10.10.10.51'], ['outside', 'data', 'mgmt'],
-                           '/Users/mucholoco/Documents/Coding/Python/code/asa_acl_report/test/outputs', 'asa_report']
+                           directory, 'asa_report']
 
     assert acl_data == ['access-list outside line 10 extended permit udp object-group FIREWALLS host ' '10.10.20.254 eq domain (hitcnt=0) 0xb5663c34\n'
                         '  access-list outside line 10 extended permit udp host 172.168.255.2 host ' '10.10.20.254 eq domain (hitcnt=0) 0xf3128096\n'
