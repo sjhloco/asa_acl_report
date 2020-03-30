@@ -39,7 +39,7 @@ The first section of the script is the customisable default values. There is the
 ```bash
 directory = expanduser("~")
 device = 'ste@10.10.10.1'
-eport_name = device.split('@')[1] + '_ACLreport_' + date.today().strftime('%Y%m%d')
+report_name = device.split('@')[1] + '_ACLreport_' + date.today().strftime('%Y%m%d')
 header = {'ACL Name':22, 'Line Number':17, 'Access':10, 'Protocol':12, 'Source Address':19, 'Source Port':16, 'Destination Address':24, 'Destination Port':20, 'Hit Count':14, 'Date Last Hit':17, 'Time Last Hit':17, 'State':10}
 ```
 
