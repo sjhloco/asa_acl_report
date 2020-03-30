@@ -26,7 +26,7 @@ python3 -m venv mkdir venv_asa_acl_report
 source venv_asa_acl_report/bin/activate
 ```
 
-Now can install the packages required to run this script. The only extra packages required to run this are netmiko and openpyxl.
+Now can install the packages required to run this script. The only extra packages required to run this are netmiko, openpyxl and pytest.
 
 ```bash
 pip install -r asa_acl_report/requirements.txt
