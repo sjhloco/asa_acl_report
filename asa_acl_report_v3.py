@@ -373,17 +373,17 @@ def create_xls(args, final_acl):
     ws1.auto_filter.ref = 'A3:L4'                   # Adds dropdown to headers to the headers
 
     # Colours used for columns dependant on the last hit data (J column). Formula is a standard XL formula
+    style_grn = DifferentialStyle(fill=PatternFill(bgColor=colors.Color("00D4EFDF")))
+    rule_inactive = Rule(type="expression",formula=['=$L1="inactive"'], dxf=style_grn)
     style_red = DifferentialStyle(fill=PatternFill(bgColor=colors.Color("00E6B0AA")))
     rule_1day = Rule(type="expression",formula=["=AND(TODAY()-$J1>=0,TODAY()-$J1<=1)"], dxf=style_red)
     style_blu = DifferentialStyle(fill=PatternFill(bgColor=colors.Color("00A9CCE3")))
     rule_7day = Rule(type="expression", formula=["=AND(TODAY()-$J1>=0,TODAY()-$J1<=7)"], dxf=style_blu)
     style_org = DifferentialStyle(fill=PatternFill(bgColor=colors.Color("00F5CBA7")))
     rule_30day = Rule(type="expression", formula=["=AND(TODAY()-$J1>=0,TODAY()-$J1<=30)"], dxf=style_org)
-    style_grn = DifferentialStyle(fill=PatternFill(bgColor=colors.Color("00D4EFDF")))
-    rule_inactive = Rule(type="expression",formula=['=$L1="inactive"'], dxf=style_grn)
 
     # Apply the rules to workbook and save it
-    for rule in [rule_1day, rule_7day, rule_30day, rule_inactive]:
+    for rule in [rule_inactive, rule_1day, rule_7day, rule_30day]:
         ws1.conditional_formatting.add(ws1.dimensions, rule)
     wb.save(filename)
     print('File {} has been created'.format(filename))
