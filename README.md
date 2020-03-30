@@ -116,3 +116,11 @@ If the filtered IP address entered is not in a valid IPv4 format or the ACL does
 
 Only extended ACLs are supported, including standard ACLs wont break it they will just be ignored like remark statements.\
 The script has been tested against the different ACE entry patterns I can think of and have come across. There maybe other patterns that I havent thought about and missed, to fix any of these exceptions they would need to be added to section 4 (*Sanitize the data*) of the code.
+
+## Unit testing
+
+The unit testing is performed only on the parts of the script that require no remote device interaction using dummy files in the directory test/outputs. There is a separate test function for the user input data and one for formatting the ACL into XL ready format and adding the hit count timestamp.
+
+pytest -v
+pytest test/test_acl_report.py::test_data_mode -v
+pytest test/test_acl_report.py::test_format_data -v
