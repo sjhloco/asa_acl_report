@@ -38,8 +38,7 @@ The first section of the script is the customisable default values. There is the
 directory = expanduser("~")
 device = 'ste@10.10.10.1'
 eport_name = device.split('@')[1] + '_ACLreport_' + date.today().strftime('%Y%m%d')
-header = {'ACL Name':22, 'Line Number':17, 'Access':10, 'Protocol':12, 'Source Address':19, 'Source Port':16, 'Destination Address':24,
-          'Destination Port':20, 'Hit Count':14, 'Date Last Hit':17, 'Time Last Hit':17, 'State':10}
+header = {'ACL Name':22, 'Line Number':17, 'Access':10, 'Protocol':12, 'Source Address':19, 'Source Port':16, 'Destination Address':24, 'Destination Port':20, 'Hit Count':14, 'Date Last Hit':17, 'Time Last Hit':17, 'State':10}
 ```
 
 ## Usage
@@ -63,7 +62,7 @@ When running against a device the IP adddress and username are entered in the cm
 ```bash
 $python asa_acl_report_v3.py -d ste@10.10.10.1
 
-============================== ASA ACL Auditor v0.3 (tested 9.8) ==============================
+========================== ASA ACL Auditor v0.3 (tested 9.8) ==========================
 Checking the options entered are valid...
 Enter the ASA password:
 ```
@@ -83,7 +82,7 @@ To gather a full list of all ACEs in all the ACLs their is no need to use the *-
 ```bash
 $python asa_acl_report_v3.py -d ste@10.10.10.1 -a data mgmt -i 10.10.20.254 10.10.10.71 10.10.10.50
 
-============================== ASA ACL Auditor v0.3 (tested 9.8) ==============================
+========================== ASA ACL Auditor v0.3 (tested 9.8) ==========================
 Checking the options entered are valid...
 Enter the ASA password:
 Gathering ACL info from the ASA...
