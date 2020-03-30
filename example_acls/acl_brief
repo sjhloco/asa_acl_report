@@ -1,0 +1,48 @@
+ASA-FW1# show access-list storage brief
+access-list storage; 8 elements; name hash: 0x7beedba5
+fc17fe55 00000000 00001d67 5e826e62
+9de147ac 00000000 00000007 5e815974
+1a3981a0 00000000 00022266 5e826e87
+ASA-FW1# show access-list mgmt brief
+access-list mgmt; 7 elements; name hash: 0xaccf654f
+4c1d46ce 00000000 0000033b 5e826e64
+bedb9398 00000000 00008671 5e826e8a
+58e5e5a9 00000000 0001395b 5e826e8a
+ASA-FW1# show access-list data brief
+access-list data; 43 elements; name hash: 0xdb877718
+ASA-FW1# show access-list wifi brief
+access-list wifi; 20 elements; name hash: 0x86740690
+36dc757e 00000000 0000054c 5e8268e6
+e6001f54 00000000 00001057 5e8268a6
+0ded663b 00000000 00000034 5e823548
+2141c2e9 00000000 00000001 5e792b9a
+b3805c73 00000000 00033286 5e826e62
+ASA-FW1# show access-list media brief
+access-list media; 19 elements; name hash: 0xf272bd94
+497108a3 00000000 0000003a 5e8261d6
+2d1875fb 00000000 00000008 5e7d4937
+76014954 00000000 00002413 5e8263bf
+a26c37f2 00000000 0000f249 5e826902
+ASA-FW1# show access-list domain brief
+access-list domain; 34 elements; name hash: 0x8400a756
+ASA-FW1# show access-list outside brief
+access-list outside; 34 elements; name hash: 0x1a47dec4
+4931fac3 f081f39e 0000069f 5e8260d4
+2e290047 f081f39e 000081df 5e826e22
+92a1d35a 00000000 0000054c 5e8268e6
+db487564 00000000 0000006f 5e80b8e1
+83d4ea4f 00000000 000002a4 5e8160df
+494e5d6c d7f06497 00000025 5e791af0
+fe974664 e0f77825 00000001 5e789567
+fe8f010b 00000000 00000026 5e7912aa
+48291ccf 00000000 00000032 5e791bc0
+fd0ffa4a 00000000 00668ea2 5e826e8e
+ASA-FW1# show access-list PROD_VPN-SPLIT brief
+access-list PROD_VPN-SPLIT; 5 elements; name hash: 0x6ad12f3d
+ASA-FW1# show access-list RA_VPN-SPLIT brief
+access-list RA_VPN-SPLIT; 9 elements; name hash: 0xd46c1521
+ASA-FW1# show access-list NF_EXPORT_ACL brief
+access-list NF_EXPORT_ACL; 1 elements; name hash: 0x53dce63e
+030ba591 00000000 00764708 5e826e8e
+ASA-FW1# show access-list stecap1 brief
+access-list stecap1; 2 elements; name hash: 0xd4a811cd
