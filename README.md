@@ -19,13 +19,12 @@ To run offline you need to collect the following information and save it to sepa
 
 ## Installation and Prerequisites
 
-Clone the repostitary and create a virtual environoment:
+Clone the repository and create a virtual environment (in example is in a directory in home directory called *venv*):
 
 ```bash
 git clone https://github.com/sjhloco/asa_acl_report.git
-mkdir venv_asa_acl_report
-python3 -m venv mkdir venv_asa_acl_report
-source venv_asa_acl_report/bin/activate
+python -m venv venv/asa_acl_report
+source venv/asa_acl_report/bin/activate
 ```
 
 Now can install the packages required to run this script. The only extra packages required to run this are netmiko, openpyxl and pytest (optional for unit testing).
@@ -59,7 +58,7 @@ When executed the script with no flags it will run against the default device, d
 
 ### Run against ASA
 
-When running against a device the IP adddress and username are entered in the cmd and the password prompted for. If the *-f flag (and filename)* is not used the script will always run against a device, be it the default or a specified one.
+When running against a device the IP address and username are entered in the cmd and the password prompted for. If the *-f flag (and filename)* is not used the script will always run against a device, be it the default or a specified one.
 
 ```bash
 $python asa_acl_report_v3.py -d ste@10.10.10.1
@@ -116,7 +115,7 @@ If the filtered IP address entered is not in a valid IPv4 format or the ACL does
 ## Caveats
 
 Only extended ACLs are supported, including standard ACLs wont break it they will just be ignored like remark statements.\
-The script has been tested against the different ACE entry patterns I can think of and have come across. There maybe other patterns that I havent thought about and missed, to fix any of these exceptions they would need to be added to section 4 (*Sanitize the data*) of the code.
+The script has been tested against the different ACE entry patterns I can think of and have come across. There maybe other patterns that I haven't thought about and missed, to fix any of these exceptions they would need to be added to section 4 (*Sanitize the data*) of the code.
 
 ## Unit testing
 
