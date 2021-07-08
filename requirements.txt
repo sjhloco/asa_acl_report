@@ -1,7 +1,7 @@
 attrs==19.3.0
 bcrypt==3.1.7
 cffi==1.14.0
-cryptography==3.2
+cryptography==3.3.2
 et-xmlfile==1.0.1
 future==0.18.2
 importlib-metadata==1.6.0
