@@ -23,8 +23,8 @@ Clone the repository and create a virtual environment (in example is in a direct
 
 ```bash
 git clone https://github.com/sjhloco/asa_acl_report.git
-python -m venv venv/asa_acl_report
-source venv/asa_acl_report/bin/activate
+python -m venv ~/venv/asa_acl_report
+source ~/venv/asa_acl_report/bin/activate
 ```
 
 Now can install the packages required to run this script. The only extra packages required to run this are netmiko, openpyxl and pytest (optional for unit testing).
