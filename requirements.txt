@@ -10,7 +10,7 @@ more-itertools==8.2.0
 netmiko==3.0.0
 openpyxl==3.0.3
 packaging==20.3
-paramiko==2.7.1
+paramiko==2.10.1
 pluggy==0.13.1
 py==1.10.0
 pycparser==2.20
