@@ -1,5 +1,7 @@
 [![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/sjhloco/asa_acl_report)
 
+Archived as I moved this and into a more general [firewall_policy_report](https://github.com/sjhloco/firewall_policy_report) with the plan to cover more than just ASAs.
+
 # ASA ACL Report
 
 ASA ACL Auditor v0.3 (tested 9.8)
